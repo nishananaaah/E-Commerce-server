@@ -23,3 +23,4 @@ const userAuthjoi = joi.object({
         'any required':'Password is a required field'
     })
 });
+export default userAuthjoi;
