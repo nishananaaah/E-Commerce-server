@@ -1,15 +1,16 @@
-import { config } from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
+import route from "./Routes/authenticationRoute";
 
-config();
+
 
 const PORT = process.env.PORT || 3000;
-const DB = process.env.DB;
 const app = express();
 app.use(express.json());
 
-mongoose.connect(DB)
+app.use("/api",route)
+
+mongoose.connect('mongodb://localhost:27017/sample')
 .then(()=>console.log("DB connected"))
 .catch((err)=>console.log(err))
 
