@@ -1,6 +1,8 @@
 import product from "../Models/productModel.js";
 import wishlist from "../Models/wishlistModel.js";
 import User from "../Models/userModel.js";
+import product from "../Models/productModel.js";
+import product from "../Models/productModel.js";
 
 export const addAndRemoveWishlist=async (req,res)=>{
     const userId=req.params.userId
@@ -9,13 +11,13 @@ export const addAndRemoveWishlist=async (req,res)=>{
     const user = await User.findById(userId)
 
     if(!user){
-        return res.status(404).json({messege:'user not fond'})
+        return res.status(404).json({message:'user not fond'})
     }
 
     const product = await product.findById(productId)
 
    if(!product){
-    return res.status(404).json({messege:'product not found'})
+    return res.status(404).json({message:'product not found'})
    }
 
    let wishlistitem = await wishlist.findOne({userId:user._id, productId:product._id})
@@ -30,7 +32,7 @@ export const addAndRemoveWishlist=async (req,res)=>{
        await user.save()
     }
 
-    return res.status(200).json({messege:'product removed from wishlist successfully'})
+    return res.status(200).json({message:'product removed from wishlist successfully'})
 
 
     //-------------------------------------------------
@@ -45,7 +47,7 @@ export const addAndRemoveWishlist=async (req,res)=>{
    user.wishlist.push(wishlistitem._id)
    await user.save()
 
-   return res.status(200).json({messege:'product added to wishlist successfully'})
+   return res.status(200).json({message:'product added to wishlist successfully'})
 }
 
 export const viewWishlist= async (req,res)=>{
@@ -57,11 +59,11 @@ export const viewWishlist= async (req,res)=>{
     })
     
     if(!user){
-        return res.status(404).json({messege:'user not found'})
+        return res.status(404).json({message:'user not found'})
     }
 
     if(!user.wishlist|| user.wishlist.length===0){
-        return res.status(200).json({messege:'your wishlist is empty ',data:[]})
+        return res.status(200).json({message:'your wishlist is empty ',data:[]})
     }
 
     return res.status(200).json(user.wishlist)
@@ -73,19 +75,19 @@ export const removeWishlist= async (req,res)=>{
     const user = await User.findById(userId)
 
     if(!user){
-        return res.status(4040).json({messege:'user not found'})
+        return res.status(4040).json({message:'user not found'})
     }
 
     const product = await product.findById(productId)
 
     if(!product){
-        return res.status(404).json({messege:'product not found'})
+        return res.status(404).json({message:'product not found'})
     }
 
     const wishlistitem = await wishlist.findOneAndDelete({userId:user._id, productId:product._id})
 
     if(!wishlistitem){
-       return res.status(404).json({messege:"product not found in the user's wishlist "})
+       return res.status(404).json({message:"product not found in the user's wishlist "})
     }
 
      // Find the index of the wishlist item in the user's wishlist array
@@ -97,5 +99,5 @@ export const removeWishlist= async (req,res)=>{
         await user.save()
      }
 
-     return res.status(200).json({messege:'product removed from wishlist successfully'})
+     return res.status(200).json({message:'product removed from wishlist successfully'})
 }

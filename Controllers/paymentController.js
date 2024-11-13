@@ -1,4 +1,4 @@
-import Razorpay from "razorpay";
+import Razorpay from 'razorpay';
 import dotenv from 'dotenv'
 import User from "../Models/userModel.js";
 import Orders from "../Models/orderModel.js";
@@ -23,11 +23,11 @@ export const payment = async (req, res) => {
     
 
     if (!user) {
-        return res.status(404).json({ messege: 'user not found' })
+        return res.status(404).json({ message: 'user not found' })
     }
 
     if (!user.cart || user.cart.length === 0) {
-        return res.status(200).json({ messege: 'your cart is empty ' })
+        return res.status(200).json({ message: 'your cart is empty ' })
     }
 
     const amount = user.cart.reduce((total, item) => {

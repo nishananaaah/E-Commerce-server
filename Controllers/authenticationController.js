@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken'
 export const register=async (req,res,next)=>{
     const {value,error}=usereauthjoi.validate(req.body);
     if(error){
-        return res.status(400).json({messege:'found validation error'})
+        return res.status(400).json({message:'found validation error'})
     }
 
     const {username,email,password}=value;

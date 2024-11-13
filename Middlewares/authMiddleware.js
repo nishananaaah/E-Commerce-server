@@ -9,11 +9,11 @@ export const usertocken=(req,res,next)=>{
 
         
         if(!tocken){
-            return res.status(403).json({messege:'tocken not provided'})
+            return res.status(403).json({message:'tocken not provided'})
         }
         jwt.verify(tocken,process.env.JWT_SECRET,(error,decode)=>{
             if(error){
-                res.status(401).json({messege:'unauthorized'})
+                res.status(401).json({message:'unauthorized'})
             }
            
             req.email=decode.email;

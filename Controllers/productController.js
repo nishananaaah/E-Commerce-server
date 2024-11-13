@@ -7,17 +7,17 @@ export const viewproduct=async (req,res)=>{
         const produt=await product.find()
 
         if(!produt){
-            return res.status(404).json({messege:'unable to get products'})
+            return res.status(404).json({message:'unable to get products'})
         }
 
-        res.status(200).json({status:"success",messege:'successfully fetched data',data:produt})
+        res.status(200).json({status:"success",message:'successfully fetched data',data:produt})
 }
 
 export const productById=async(req,res)=>{
     const productId = req.params.id;
     const product= await product.findById(productId)
     if(!product){
-        return res.status(404).json({Error:'not found',messege:'product not found'})
+        return res.status(404).json({Error:'not found',message:'product not found'})
     }
     res.status(200).json({product})
 }
@@ -32,7 +32,7 @@ export const productBycategory = async (req,res)=>{
     }).select('title category price')
 
     if(!product){
-        return res.status(404).json({messege:'item not found'})
+        return res.status(404).json({message:'item not found'})
     }
 
     return res.status(200).json({product})
@@ -47,14 +47,13 @@ export const orderbyid=async (req,res)=>{
   });
 //  populate:{path:"productId"}
   if(!user){
-    return res.status(404).json({messege:'user not found'})
+    return res.status(404).json({message:'user not found'})
   }
   
   if(!user.orders||user.orders.length===0){
-    return res.status(200).json({messege:'no orders yet ',data:[]})
+    return res.status(200).json({message:'no orders yet ',data:[]})
   }
 
   return res.status(200).json(user.orders)
-
 
 }
