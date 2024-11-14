@@ -11,7 +11,7 @@ const orderSchema = new mongoose.Schema({
     },
     prodductId:[{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Products",
+        ref:"products",
         required:true,
     }],
     purchaseDate:{

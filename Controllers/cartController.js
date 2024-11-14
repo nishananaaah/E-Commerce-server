@@ -1,4 +1,4 @@
-import User from "../Models/userModel.js";
+import User from '../Models/usermodel.js';
 import Cart from '../Models/cartModel.js'
 import products from "../Models/productModel.js";
 
@@ -39,10 +39,7 @@ export const addToCart = async (req,res)=>{
    }
 
 }
-
-
-
-  export const viewCart= async (req,res)=>{
+ export const viewCart= async (req,res)=>{
     const {id} = req.params;
    
     const user= await User.findById(id)

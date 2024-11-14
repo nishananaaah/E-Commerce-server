@@ -26,12 +26,12 @@ route.delete('/:userId/cart/:productId/remove',TryCatchMiddleware(RemoveCart))
 //wishlist route 
 
 route.post('/:userId/wishlist/:productId',TryCatchMiddleware(addAndRemoveWishlist))
-route.get('/:id/wishlist',TryCatchMiddleware(viewWishlist))
+route.get('/:id/wishlist',TryCatchMiddleware(viewWishlist))//id is userID
 route.delete('/:userId/wishlist/:productId/remove',TryCatchMiddleware(removeWishlist))
 
-//payment route
+//payment route//
 route.post('/payment/:id',TryCatchMiddleware(payment))
 route.post('/verifypayment',TryCatchMiddleware(verifyPayment))
 route.get('/:userId/orders',TryCatchMiddleware(orderbyid))
 
-export default route
+export default route;

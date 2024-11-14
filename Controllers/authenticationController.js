@@ -1,17 +1,17 @@
-import  User from '../Models/userModel.js'
-import userauthjoi from '../Validation/userauthjoi.js'
-import bcryptjs from 'bcryptjs'
+import User from '../Models/usermodel.js'
+import userAuthjoi from '../Validation/userauthjoi.js'
+import bcryptjs from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 
 //register section
 export const register=async (req,res,next)=>{
-    const {value,error}=userauthjoi.validate(req.body);
+    const {value,error} = userAuthjoi.validate(req.body);
     if(error){
         return res.status(400).json({message:'found validation error'})
     }
-
-    const {username,email,password}=value;
+ const {username,email,password}=value;
+   
     try {
          const isExcistinguser = await User.findOne({email:email})
 
@@ -40,35 +40,36 @@ export const register=async (req,res,next)=>{
 }
 
 //login session
-export const login = async (req,res,next)=>{
-    
-    const {email,password}=req.body;
-try {
-    const isuservalid =await User.findOne({email})
-    
-    console.log(password,"this login achievedlkjlkj");
+export const login = async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    const isUserValid = await User.findOne({ email });
 
-     if(!isuservalid){
-        return res.status(404).json({error:'user not found'})
-     }
-    
-     const validPass = bcryptjs.compareSync(password,isuservalid.password)
-     
-     if(!validPass){
-        return res.status(404).json({error:'wrong credential'})
-     }
-     
-    //jwt setting
-     const tocken = jwt.sign({id:isuservalid._id},process.env.JWT_SECRET)
-     const {password:hashedpassword,...data }=isuservalid._doc;
-     const expairyDate= new Date(Date.now()+60*1000); 
-   
-     //cookie setting
+    console.log(password, email, "this login achieved");
 
-     res.cookie("Access token",tocken,{httpOnly:true,expire:expairyDate})
-     .status(200).json({messege:'user login successfully',user:data,tocken})
-  }catch(error){
-    res.status(500).json({error:'internel server error'})
-    next(error)
+    if (!isUserValid) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const validPass = bcryptjs.compareSync(password, isUserValid.password);
+
+    if (!validPass) {
+      return res.status(404).json({ error: "Wrong credentials" });
+    }
+
+    // JWT setting
+    const token = jwt.sign({ id: isUserValid._id }, process.env.USER_JWT);
+    const { password: hashedPassword, ...data } = isUserValid._doc;
+    const expiryDate = new Date(Date.now() + 60 * 1000);
+
+    // Cookie setting
+    res
+      .cookie("access_token", token, { httpOnly: true, expires: expiryDate })
+      .status(200)
+      .json({ message: "User logged in successfully", user: data, token });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal server error" });
+    next(error);
   }
-}
+};

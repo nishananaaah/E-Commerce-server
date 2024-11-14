@@ -1,6 +1,6 @@
 
 import products from '../Models/productModel.js';
-import User from '../Models/userModel.js';
+import User from '../Models/usermodel.js';
 
 export const viewproduct=async (req,res)=>{
     
@@ -13,7 +13,7 @@ export const viewproduct=async (req,res)=>{
         res.status(200).json({status:"success",message:'successfully fetched data',data:produt})
 }
 
-export const productById=async(req,res)=>{
+export const productById = async(req,res)=>{
     const productId = req.params.id;
     const product= await products.findById(productId)
     if(!product){
