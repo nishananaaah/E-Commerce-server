@@ -1,10 +1,10 @@
 
-import product from '../Models/productModel.js';
+import products from '../Models/productModel.js';
 import User from '../Models/userModel.js';
 
 export const viewproduct=async (req,res)=>{
     
-        const produt=await product.find()
+        const produt=await products.find()
 
         if(!produt){
             return res.status(404).json({message:'unable to get products'})
@@ -15,7 +15,7 @@ export const viewproduct=async (req,res)=>{
 
 export const productById=async(req,res)=>{
     const productId = req.params.id;
-    const product= await product.findById(productId)
+    const product= await products.findById(productId)
     if(!product){
         return res.status(404).json({Error:'not found',message:'product not found'})
     }
@@ -24,7 +24,7 @@ export const productById=async(req,res)=>{
 
 export const productBycategory = async (req,res)=>{
     const {categoryname}=req.params
-    const product=await product.find({
+    const product=await products.find({
         $or:[
             {category:{$regex:new RegExp(categoryname,'i')}},
             {title:{$regex:new RegExp(categoryname,'i')}}

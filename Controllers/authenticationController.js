@@ -1,12 +1,12 @@
 import  User from '../Models/userModel.js'
-import usereauthjoi from '../validation/Userauthjoi.js'
+import userauthjoi from '../Validation/userauthjoi.js'
 import bcryptjs from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 
 //register section
 export const register=async (req,res,next)=>{
-    const {value,error}=usereauthjoi.validate(req.body);
+    const {value,error}=userauthjoi.validate(req.body);
     if(error){
         return res.status(400).json({message:'found validation error'})
     }
@@ -66,7 +66,7 @@ try {
      //cookie setting
 
      res.cookie("Access token",tocken,{httpOnly:true,expire:expairyDate})
-     .status(200).json({messege:'user login success fully',user:data,tocken})
+     .status(200).json({messege:'user login successfully',user:data,tocken})
   }catch(error){
     res.status(500).json({error:'internel server error'})
     next(error)

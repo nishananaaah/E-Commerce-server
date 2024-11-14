@@ -1,8 +1,7 @@
-import product from "../Models/productModel.js";
+import products from "../Models/productModel.js";
 import wishlist from "../Models/wishlistModel.js";
 import User from "../Models/userModel.js";
-import product from "../Models/productModel.js";
-import product from "../Models/productModel.js";
+
 
 export const addAndRemoveWishlist=async (req,res)=>{
     const userId=req.params.userId
@@ -14,7 +13,7 @@ export const addAndRemoveWishlist=async (req,res)=>{
         return res.status(404).json({message:'user not fond'})
     }
 
-    const product = await product.findById(productId)
+    const product = await products.findById(productId)
 
    if(!product){
     return res.status(404).json({message:'product not found'})
@@ -78,7 +77,7 @@ export const removeWishlist= async (req,res)=>{
         return res.status(4040).json({message:'user not found'})
     }
 
-    const product = await product.findById(productId)
+    const product = await products.findById(productId)
 
     if(!product){
         return res.status(404).json({message:'product not found'})

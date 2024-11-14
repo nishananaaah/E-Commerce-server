@@ -1,7 +1,6 @@
 import User from "../Models/userModel.js";
 import Cart from '../Models/cartModel.js'
-import product from "../Models/productModel.js";
-import product from "../Models/productModel.js";
+import products from "../Models/productModel.js";
 
 export const addToCart = async (req,res)=>{
     const userId=req.params.userId;
@@ -14,7 +13,7 @@ export const addToCart = async (req,res)=>{
    } 
    if(user.isDelted===true) return res.status(210).json({message:'Admin blocked'})
   //find product
-   const product= await product.findById(productId)
+   const product= await products.findById(productId)
    
    if(!product){
     return res.status(404).json({message:'product not found'})
@@ -80,7 +79,7 @@ export const incrementCartItemqunity= async (req,res)=>{
   //produnt find
 
 
-  const product=await product.findById(productId)
+  const product=await products.findById(productId)
   
   if(!product){
     return res.status(209).json({error:'error',message:'product not found'})
@@ -112,7 +111,7 @@ export const decrementCartItemquntity=async (req,res)=>{
     return res.status(404).json({stats:'error',message:'user not found'})
   }
   //find product
-  const product=await product.findById(productId)
+  const product=await products.findById(productId)
   if(!product){
     return res.status(404).json({status:'error',message:'product not found'})
   }
@@ -141,7 +140,7 @@ export const RemoveCart= async (req,res)=>{
   return res.status(404).json({message:'user not found'})
  }
 
- const product=await product.findById(productId)
+ const product=await products.findById(productId)
  if(!product){
   return res.status(404).json({message:'product not found'})
  }

@@ -1,12 +1,12 @@
-import { usertocken } from "../middelwares/authMiddleware.js";
-import exprss from 'express'
-import { viewproduct,productById,productBycategory,orderbyid } from "../Controllers/productcantrolls.js";
-import TryCatchMiddleware from "../middelwares/TryCatchMiddleware.js";
-import { addToCart,viewCart,incrementCartItemqunity,decrementCartItemquntity } from "../Controllers/cartController.js";
-import { addAndRemoveWishlist,viewWishlist,removeWishlist } from "../Controllers/wishlistControlls.js";
+import { usertocken } from '../Middlewares/userMiddleware.js';
+import express from 'express';
+import { viewproduct,productById,productBycategory,orderbyid } from "../Controllers/productController.js";
+import TryCatchMiddleware from "../Middlewares/trycatchMiddleware.js";
+import { addToCart,viewCart,incrementCartItemqunity,decrementCartItemquntity,RemoveCart } from "../Controllers/cartController.js";
+import { addAndRemoveWishlist,viewWishlist,removeWishlist } from "../Controllers/wishlistController.js";
 import {payment,verifyPayment} from '../Controllers/paymentController.js'
 
-const route=exprss.Router()
+const route=express.Router()
 
 //products
 
