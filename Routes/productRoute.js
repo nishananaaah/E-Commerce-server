@@ -17,10 +17,10 @@ route.get('/products/:id',TryCatchMiddleware(productById))
 route.get('/products/category/:categoryname',TryCatchMiddleware(productBycategory))
 
 //cart route
-route.get('/:id/cart',TryCatchMiddleware(viewCart))
+route.get('/:id/cart',TryCatchMiddleware(viewCart))//userID
 route.post('/:userId/cart/:productId',TryCatchMiddleware(addToCart))
 route.patch('/:userId/cart/:id/increment',TryCatchMiddleware(incrementCartItemqunity))//id is productID
-route.put('/:userId/cart/:id/decrement',TryCatchMiddleware(decrementCartItemquntity))//id is productID   f
+route.put('/:userId/cart/:id/decrement',TryCatchMiddleware(decrementCartItemquntity))//id is productID  
 route.delete('/:userId/cart/:productId/remove',TryCatchMiddleware(RemoveCart))
 
 //wishlist route 
