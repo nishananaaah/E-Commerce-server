@@ -6,6 +6,7 @@ dotenv.config();
 export const usertocken=(req,res,next)=>{
     try {
         const token = req.headers["authorization"];
+        //This is accessing the authorization header from the headers object. HTTP headers are key-value pairs, and the authorization header usually contains authentication-related data like a Bearer token or other credentials
 
      if(!token){
             return res.status(403).json({message:'tocken not provided'})
