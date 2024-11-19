@@ -19,7 +19,7 @@ export const login = async (req, res, next) => {
     } else {
         res.status(401).json({ messege: "unauthorized" })
     }
-}
+}     
 
 
 export const viewAllusers=async(req,res,next)=>{

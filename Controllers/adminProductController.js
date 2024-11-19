@@ -102,9 +102,6 @@ export const adminUpdateproduct=async(req,res)=>{
 
 }
 
-
-
-
 export const admindeleteproductbyid=async (req,res)=>{
     const {productId}=req.params
 
