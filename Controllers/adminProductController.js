@@ -1,5 +1,5 @@
-import productjoi from "../validation/productjoi.js"
-import products from "../Models/productmodel.js"
+import productjoi from '../Validation/productjoi.js'
+import products from '../Models/productModel.js'
 
 import express from "express"
 const app=express()
@@ -8,7 +8,7 @@ app.use(express.json())
 export const adminAddProduct=async(req,res,next)=>{
    const result = await productjoi.validateAsync(req.body);
    if(!result){
-    return res.status(403).json({messege:"validation error on add product"})
+    return res.status(403).json({message:"validation error on add product"})
    }
 
    const newProdut=new products({
@@ -20,7 +20,7 @@ export const adminAddProduct=async(req,res,next)=>{
    });
 
    await newProdut.save()
-   return res.status(200).json({messege:'product added successfully'})
+   return res.status(200).json({message:'product added successfully'})
 }
 
 
@@ -31,7 +31,7 @@ export const adminviewproduct=async (req,res,next)=>{
     const allproduct=await products.find()
  
     if(!allproduct){
-        return res.status(404).json({messege:'produts not founded '})
+        return res.status(404).json({message:'produts not founded '})
     }
 
     res.status(200).json(allproduct)
@@ -47,7 +47,7 @@ export const adminviewproductbyid=async(req,res)=>{
     const product=await products.findById(productId)
 
     if(!product){
-        return res.status(404).json({messege:'produnt not found'})
+        return res.status(404).json({message:'produnt not found'})
     }
 
     return res.status(200).json(product)
@@ -66,7 +66,7 @@ export const adminproductbycategery=async (req,res)=>{
     }).select('title category price');
 
     if(product.length===0){
-        return res.status(404).json({messege:'No items found in the given category'})
+        return res.status(404).json({message:'No items found in the given category'})
     }
 
     res.status(200).json({product})
@@ -81,7 +81,7 @@ export const adminUpdateproduct=async(req,res)=>{
     const product= await products.findById(productId)
 
     if(!product){
-        return res.status(404).json({messege:'product not found'})
+        return res.status(404).json({message:'product not found'})
     }
 
     const {title,description,price,category}=req.body;
@@ -98,7 +98,7 @@ export const adminUpdateproduct=async(req,res)=>{
 
     await product.save()
 
-    res.status(200).json({messege:'product successfully updated'})
+    res.status(200).json({message:'product successfully updated'})
 
 }
 
@@ -111,8 +111,8 @@ export const admindeleteproductbyid=async (req,res)=>{
     const produtdelete= await products.findByIdAndDelete(productId)
 
     if(!produtdelete){
-        return res.status(404).json({messege:'product not found'})
+        return res.status(404).json({message:'product not found'})
     }
 
-    res.status(200).json({messege:'product deleted successfully'})
+    res.status(200).json({message:'product deleted successfully'})
 }
