@@ -1,10 +1,10 @@
-import { login,viewAllusers,adminviewUserbyid,adminBlockUserById,adminviewUserByUserName,adminUnblockUserById } from "../Controllers/admincontrolls.js";
+import { login,viewAllusers,adminviewUserbyid,adminBlockUserById,adminviewUserByUserName,adminUnblockUserById } from "../Controllers/adminController.js";
 import express from "express";
 import { adminTocken } from "../middelwares/adminAuthmiddle.js";
 import TryCatchMiddleware from "../middelwares/TryCatchMiddleware.js";
 import uploadImage from "../middelwares/uploadmiddelware.js";
 import { adminAddProduct,adminUpdateproduct,adminviewproduct,admindeleteproductbyid,adminviewproductbyid,adminproductbycategery    } from "../Controllers/adminProductController.js";
-import { orderdetails,stats } from "../Controllers/admin orderdetails.js";
+import { orderdetails,stats } from "../Controllers/adminorderDetails.js";
 
 const router=express.Router()
 //admin login 

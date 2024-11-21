@@ -43,7 +43,7 @@ export const orderbyid=async (req,res)=>{
 
   const user = await User.findById(userId).populate({
     path: "orders",         // Populate the orders array
-    populate: {path: "productId"},
+    populate: {path:"productId"},
   });
 //  populate:{path:"productId"}
   if(!user){

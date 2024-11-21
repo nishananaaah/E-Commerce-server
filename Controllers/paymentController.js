@@ -1,20 +1,21 @@
-import Razorpay from 'razorpay';
+import Razorpay from "razorpay";
 import dotenv from 'dotenv'
-import User from '../Models/usermodel.js';
+import User from "../Models/usermodel.js";
 import Orders from "../Models/orderModel.js";
 import crypto from 'crypto'
 import Cart from '../Models/cartModel.js'
+
+
 dotenv.config()
 
 
-
-
 const razorpay = new Razorpay({
-    key_id: Date.now,
+    key_id: process.env.Razorpay_key_id,
     key_secret: process.env.Razorpay_key_secret,
 });
 
 export const payment = async (req, res) => {
+    
     const id = req.params.id
     const user = await User.findById(id).populate({
         path: "cart",
@@ -23,20 +24,21 @@ export const payment = async (req, res) => {
     
 
     if (!user) {
-        return res.status(404).json({ message: 'user not found' })
+        return res.status(404).json({ messege: 'user not found' })
     }
-
+    
+    
     if (!user.cart || user.cart.length === 0) {
-        return res.status(200).json({ message: 'your cart is empty ' })
+        return res.status(200).json({ messege: 'your cart is empty ' })
     }
-
+    
     const amount = user.cart.reduce((total, item) => {
         return total += item.productId.price * item.quantity
     },0)
     
-
+    
     const productNames = user.cart.map(item => item.productId.title).join(', ')
-
+ 
 
     const options = {
         amount: amount * 100, // amount in the smallest currency unit
@@ -49,7 +51,16 @@ export const payment = async (req, res) => {
 
     };
 
-    const order = await razorpay.orders.create(options);
+   
+    
+    let order;
+    try {
+        order = await razorpay.orders.create(options);
+    } catch (error) {
+        console.log('Error creating order:', error);
+        return res.status(500).json({ message: 'Error creating Razorpay order' });
+    }
+    
     res.status(200).json({
         id:order.id,
         amount:order.amount,
@@ -64,9 +75,12 @@ export const verifyPayment = async (req, res) => {
     hmac.update(razorpay_order_id + '|' + razorpay_payment_id);
     const generatedSignature = hmac.digest('hex')
     
+console.log(razorpay_order_id,razorpay_payment_id,'jjjjjj');
 
 
     if (generatedSignature !== razorpay_signature) {
+        console.log(generatedSignature,razorpay_signature,'kkkkk');
+        
         return res.status(400).send('verification failed')
     }
 
