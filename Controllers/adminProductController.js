@@ -1,6 +1,5 @@
 import productjoi from '../Validation/productjoi.js'
 import products from '../Models/productModel.js'
-
 import express from "express"
 const app=express()
 app.use(express.json())

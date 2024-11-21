@@ -6,6 +6,8 @@ import productRoute from "./Routes/productRoute.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import cors from "cors";
+// import adminRoute from "./Routes/adminRoute.js"
+import adminRoute from "./Routes/adminRoute.js"
 
 //fix for ES module _dirname
 const _filename=fileURLToPath(import.meta.url);
@@ -22,6 +24,8 @@ app.use(express.json())
 
 app.use("/api/users",authRoutes)
 app.use("/api/users",productRoute)
+// app.use('/api/admin',adminRoute)
+app.use("/api/admin",adminRoute)
 
 app.use(express.static(_dirname))
 // app.use('/', (req, res) => {

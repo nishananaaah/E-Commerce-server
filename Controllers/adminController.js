@@ -1,16 +1,20 @@
 import { config } from "dotenv";
 import jwt from 'jsonwebtoken'
-import User from "../Models/usermodel";
+import User from "../Models/userModel.js";
 
 
 config()
 
 export const login = async (req, res, next) => {
     const { email, password } = req.body;
+   
     
 
     if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
         const tocken = jwt.sign({ email }, process.env.ADMIN_SECRET_KEY)
+        console.timeLog()
+        
+        
 
         res.cookie('access_token', tocken, { httpOnly: true });
         

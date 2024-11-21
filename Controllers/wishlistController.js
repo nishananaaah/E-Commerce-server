@@ -1,6 +1,6 @@
 import products from "../Models/productModel.js";
 import wishlist from "../Models/wishlistModel.js";
-import User from "../Models/usermodel.js";
+import User from "../Models/userModel.js"
 
 
 export const addAndRemoveWishlist=async (req,res)=>{

@@ -1,4 +1,4 @@
-import User from '../Models/usermodel.js'
+import User from '../Models/userModel.js'
 import userAuthjoi from '../Validation/userauthjoi.js'
 import bcryptjs from 'bcrypt'
 import jwt from 'jsonwebtoken'
