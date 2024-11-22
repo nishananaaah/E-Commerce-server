@@ -5,7 +5,7 @@ const app=express()
 app.use(express.json())
 
 export const adminAddProduct=async(req,res,next)=>{
-   const result = await productjoi.validateAsync(req.body);
+   const result = await productjoi.validateAsync(req.body);//validateAsync is used for asynchronous validation in the Joi validation library.
    if(!result){
     return res.status(403).json({message:"validation error on add product"})
    }

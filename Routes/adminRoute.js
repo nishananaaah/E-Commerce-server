@@ -2,7 +2,7 @@ import { login,viewAllusers,adminviewUserbyid,adminBlockUserById,adminviewUserBy
 import express from "express";
 import {adminTocken} from "../Middlewares/adminAuthMiddleware.js";
 import TryCatchMiddleware from "../Middlewares/trycatchMiddleware.js";
-// import uploadImage from "../middelwares/uploadmiddelware.js";
+import uploadImage from "../Middlewares/uploadMiddleware.js";
 import { adminAddProduct,adminUpdateproduct,adminviewproduct,admindeleteproductbyid,adminviewproductbyid,adminproductbycategery    } from "../Controllers/adminProductController.js";
 import { orderdetails,stats } from "../Controllers/adminorderDetails.js";
 
@@ -24,7 +24,7 @@ router.put('/user/unblock/:userId',TryCatchMiddleware(adminUnblockUserById))
 
 //admin product route
 
-router.post('/createproducts',TryCatchMiddleware(adminAddProduct))
+router.post('/createproducts',uploadImage,TryCatchMiddleware(adminAddProduct))
 
 router.get('/products',TryCatchMiddleware(adminviewproduct))
 
@@ -32,7 +32,7 @@ router.get('/products/:productId',TryCatchMiddleware(adminviewproductbyid))
 
 router.get('/products/category/:categoryname',TryCatchMiddleware(adminproductbycategery))
 
-router.put('/products/edit/:productId',TryCatchMiddleware(adminUpdateproduct))
+router.put('/products/edit/:productId',uploadImage,TryCatchMiddleware(adminUpdateproduct))
 
 router.delete('/products/delete/:productId',TryCatchMiddleware(admindeleteproductbyid))
 

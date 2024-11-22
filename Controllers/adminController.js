@@ -16,9 +16,9 @@ export const login = async (req, res, next) => {
         
         
 
-        res.cookie('access_token', tocken, { httpOnly: true });
+        res.cookie('access_token', tocken, { httpOnly: true });//save in cookies
         
-        return res.status(200).json({message: "Admin logged in successfully", tocken });
+        return res.status(200).json({message: "Admin logged in successfully", tocken });//provide tocken
 
     } else {
         res.status(401).json({ messege: "unauthorized" })
@@ -55,6 +55,7 @@ export const adminviewUserByUserName = async (req,res)=>{
     const {username}=req.params
 
     const user=await User.find({username:{$regex:new RegExp(username,'i')}}).select('username')
+    // The 'i' flag makes the search case-insensitive, so it will match the username regardless of whether it's uppercase or lowercase
 
     if(!user){
         return res.status(404).json({message:'No users found with usernames containing the given category name'})
@@ -68,7 +69,7 @@ export const adminBlockUserById= async (req,res)=>{
  const userblocked= await User.findByIdAndUpdate({_id:userId},{$set:{isDeleted:true}})
 
  if(!userblocked){
-    return res.status(404).json({message:'user not foud'})
+    return res.status(404).json({message:'user not found'})
  }
 
  res.status(200).json({message:'User Blocked Successfully'})
@@ -80,7 +81,7 @@ export const adminUnblockUserById= async (req,res)=>{
  const userblocked= await User.findByIdAndUpdate({_id:userId},{$set:{isDeleted:false}})
 
  if(!userblocked){
-    return res.status(404).json({message:'user not foud'})
+    return res.status(404).json({message:'user not found'})
  }
 
  res.status(200).json({message:'User Unblocked Successfully'})
