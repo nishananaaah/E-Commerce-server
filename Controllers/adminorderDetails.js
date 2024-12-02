@@ -2,7 +2,7 @@
 import orders from "../Models/orderModel.js"
 
 export const orderdetails=async (req,res)=>{
-  const orderss=await orders.find().populate({//.populate('userId'): Tells Mongoose to look at the userId field in the Post document and replace it with the actual User document that corresponds to that userId.
+  const orderss=await orders.find().populate({//id objectID=productId
     path:'productId'
   })
   
@@ -14,9 +14,9 @@ export const orderdetails=async (req,res)=>{
 }
 
 
-export const stats=async (req,res)=>{
+export const stats=async (req,res)=>{//statistics about the orders
 
-    const totalstats= await orders.aggregate([
+    const totalstats= await orders.aggregate([//order product//
       {
         $group:{
           _id:null,

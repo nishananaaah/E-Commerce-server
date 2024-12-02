@@ -19,7 +19,7 @@ export const register=async (req,res,next)=>{
             return res.status(400).json({status: "error",message: "email already taken!"})
          }
 
-         const hashedpassword = await bcryptjs.hash(password,10)
+         const hashedpassword = await bcryptjs.hash(password,10)//10 hash number generate security increase
 
          const newuser=new User({
             username:username,
@@ -49,6 +49,9 @@ export const login = async (req, res, next) => {
 
     if (!isUserValid) {
       return res.status(404).json({ error: "User not found" });
+    }
+    if(isUserValid.isDeleted){
+      return res.status(403).json({error:"User is blocked"})//admin block user
     }
 
     const validPass = bcryptjs.compareSync(password, isUserValid.password);
