@@ -10,7 +10,7 @@ const router=express.Router()
 //admin login 
 router.post('/login',TryCatchMiddleware(login))
 
-router.use(adminTocken)
+// router.use(adminTocken)
 //admin route
 router.get('/viewAllUsers',TryCatchMiddleware(viewAllusers))
 
@@ -41,6 +41,7 @@ router.delete('/products/delete/:productId',TryCatchMiddleware(admindeleteproduc
 router.get('/orders',TryCatchMiddleware(orderdetails))
 
 router.get('/stats',TryCatchMiddleware(stats))
+
 
 
 export default router;

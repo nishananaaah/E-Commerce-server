@@ -38,22 +38,47 @@ export const productBycategory = async (req,res)=>{
     return res.status(200).json({product})
 }
 
-export const orderbyid=async (req,res)=>{
-  const {userId}=req.params;
+// export const orderbyid=async (req,res)=>{
+//   const {userId}=req.params;
 
-  const user = await User.findById(userId).populate({
-    path: "orders",         // Populate the orders array
-    populate: {path:"productId"},
-  });
-//  populate:{path:"productId"}
-  if(!user){
-    return res.status(404).json({message:'user not found'})
-  }
+//   const user = await User.findById(userId).populate({
+//     path: "orders",         // Populate the orders array
+//     populate: {path:"productId"},
+//   });
+// //  populate:{path:"productId"}
+//   if(!user){
+//     return res.status(404).json({message:'user not found'})
+//   }
   
-  if(!user.orders||user.orders.length===0){
-    return res.status(200).json({message:'no orders yet ',data:[]})
+//   if(!user.orders||user.orders.length===0){
+//     return res.status(200).json({message:'no orders yet ',data:[]})
+//   }
+
+//   return res.status(200).json(user.orders)
+
+// }
+
+
+export const orderbyid = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findById(userId).populate({
+      path: "orders",
+      populate: { path: "productId" },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (!user.orders || user.orders.length === 0) {
+      return res.status(200).json({ message: "No orders yet", data: [] });
+    }
+
+    return res.status(200).json({ message: "Orders retrieved successfully", data: user.orders });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
-
-  return res.status(200).json(user.orders)
-
-}
+};

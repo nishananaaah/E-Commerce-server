@@ -42,6 +42,8 @@ export const register=async (req,res,next)=>{
 //login session
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
+  console.log('iiiii',email);
+  
   try {
     const isUserValid = await User.findOne({ email });
 
@@ -55,7 +57,7 @@ export const login = async (req, res, next) => {
     }
 
     const validPass = bcryptjs.compareSync(password, isUserValid.password);
-
+  
     if (!validPass) {
       return res.status(404).json({ error: "Wrong credentials" });
     }
